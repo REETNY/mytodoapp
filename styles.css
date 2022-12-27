@@ -255,11 +255,21 @@ input[type="submit"]{
 @media only screen and (max-width: 600px){
     body{
         width: 100%;
-        overflow: hidden;
+        min-height: 100vh;
+        overflow-x: hidden;
     }
 
     main{
-        padding: 15px 5px;
+        width: 100%;
+        min-height: 100vh;
+        padding: 15px 20px;
+        display: flex;
+        overflow-x: hidden;
+    }
+
+    .app-container{
+        display: flex;
+        flex-direction: column;
     }
 
     .greet{
@@ -270,12 +280,25 @@ input[type="submit"]{
         font-size: 25px;
     }
 
+    #new-todo-form h4{
+        font-size: 22px;
+    }
+
     .create-todo h3{
-        font-size: 29px;
+        font-size: 22px;
     }
 
     .delete,.edit{
         font-size: 10px;
         font-weight: 700;
+    }
+
+    .todo-list h3{
+        font-size: 21px;
+        margin-bottom: 20px;
+    }
+
+    .todo-content input{
+        font-size: 15px;
     }
 }

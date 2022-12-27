@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root{
+    --personal: rgb(226, 65, 186);
+    --business: rgb(39, 174, 236);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+main{
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px 30px;
+    background: #eee;
+}
+
+.app-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.app-header{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.greeting{
+    width: 100%;
+    margin-bottom: 20px;
+    background: #eee;
+}
+
+.greet{
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0.85px;
+}
+
+#my_name{
+    font-size: 40px;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    background: #eee;
+}
+
+
+
+
+.app-body{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.create-todo{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    place-items: center;
+    width: 100%;
+}
+
+.create-todo h3{
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#new-todo-form{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#new-todo-form h4{
+    font-size: 35px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#contents{
+    width: 100%;
+    display: block;
+    height: 60px;
+    padding-left: 30px;
+    border: none;
+    box-shadow: 0px 0px 2px 1px black;
+    border-radius: 30px;
+    font-size: 21px;
+    outline: none;
+}
+
+.options{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    grid-template-rows: 120px;
+}
+
+.options label{
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+}
+
+#category1, #category2{
+    appearance: none;
+    border: none;
+    outline: none;
+}
+
+.bubble{
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    border-color: var(--business);
+    box-shadow: 0px 0px 1px 2px var(--business);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.bubble.personal{
+    box-shadow: 0px 0px 1px 2px var(--personal);
+    border-color: var(--personal);
+}
+
+.bubble.business::after{
+    position: absolute;
+    content: '';
+    width: 0px;
+    height: 0px;
+    background: var(--business);
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.bubble.personal::after{
+    position: absolute;
+    content: '';
+    width: 0px;
+    height: 0px;
+    background: var(--personal);
+    display: inline-block;
+    border-radius: 50%;
+}
+
+input:checked ~ .bubble::after{
+    width: 10px;
+    height: 10px;
+}
+
+input[type="submit"]{
+    width: 90%;
+    margin-top: 20px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: rgb(223, 57, 112);
+}
+
+
+
+.todo-list{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.list{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 25px;
+}
+
+.todo-list h3{
+    font-size: 30px;
+}
+
+.todo-item{
+    display: flex;
+    align-items: center;
+    background: gray;
+    padding: 0 20px;
+    border-radius: 27.5px;
+}
+
+.todo-item label{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-basis: 5%;
+}
+
+.todo-content{
+    flex-basis: 70%;
+}
+
+.todo-content input{
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 10px;
+    outline: none;
+    background: gray;
+    border: none;
+}
+
+.actions{
+    flex-basis: 25%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.edit{
+    background: rgb(117, 170, 31);
+}
+
+.delete{
+    background: rgb(226, 75, 29);
+}
+
+.actions button{
+    width: 45%;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.todo-item label input[type="checkbox"]{
+    appearance: none;
+}
+
+.todo-item.done .todo-content input{
+    text-decoration: line-through;
+}
+
+
+
+
+@media only screen and (max-width: 600px){
+    body{
+        width: 100%;
+        overflow: hidden;
+    }
+
+    main{
+        padding: 15px 5px;
+    }
+
+    .greet{
+        font-size: 22px;
+    }
+
+    #my_name{
+        font-size: 25px;
+    }
+
+    .create-todo h3{
+        font-size: 29px;
+    }
+
+    .delete,.edit{
+        font-size: 10px;
+        font-weight: 700;
+    }
+}

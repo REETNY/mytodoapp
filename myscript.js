@@ -60,13 +60,14 @@ function deleteTodo(todo){
     todos.splice(index,1);
     console.log(todos);
     saveTodos(todos);
+    todosIt = getTodos();
     showTodos();
 }
 
 
 
 
-let todos = [];
+let todosIt = [];
 
 window.addEventListener("load", () => {
     todos = getTodos();
@@ -81,6 +82,7 @@ nameInput.addEventListener("change", (e) => {
 
 todoForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    console.log(todos)
 
     const todo = {
         content: e.target.elements.content.value,
@@ -91,9 +93,8 @@ todoForm.addEventListener("submit", (e) => {
     if(todo.content === "" || todo.category == ""){
         return;
     }
-
-    todos.push(todo);
-    saveTodos(todos);
+    todosIt.push(todo);
+    saveTodos(todosIt);
     e.target.reset();
     showTodos();
 })

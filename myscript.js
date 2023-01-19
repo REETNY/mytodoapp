@@ -64,6 +64,15 @@ function deleteTodo(todo){
     showTodos();
 }
 
+function checkTodoStatus(todo){
+    const todos = getTodos();
+
+    todos.forEach( todoz => {
+        if(todo.category == todoz.category && todo.content == todoz.content & todoz.done === todo.done){
+            return;
+        }
+    })
+}
 
 
 
@@ -112,7 +121,7 @@ function showTodos(){
         todoItem.classList.add("todo-item");
 
         const label = document.createElement("label");
-        const input = document.createElement("input");
+        const inputz = document.createElement("input");
         const span = document.createElement("span");
 
         const todoContent = document.createElement("div");
@@ -121,8 +130,8 @@ function showTodos(){
         const editBtn = document.createElement("button");
         const deleteBtn = document.createElement("button");
 
-        input.type = "checkbox";
-        input.checked = todo.done;
+        inputz.type = "checkbox";
+        inputz.checked = todo.done;
         
         span.classList.add("bubble");
 
@@ -143,7 +152,7 @@ function showTodos(){
         deleteBtn.classList.add("delete");
         deleteBtn.innerText = `delete`;
 
-        label.appendChild(input);
+        label.appendChild(inputz);
         label.appendChild(span);
 
         actions.appendChild(editBtn);
@@ -161,12 +170,18 @@ function showTodos(){
             todoItem.classList.remove("done");
         }
 
-        input.addEventListener("click", (e) => {
+        inputz.addEventListener("click", (e) => {
             saveDone(todo, e.target.checked, todoItem);
         });
 
         editBtn.addEventListener("click", () => {
+
+            if(inputz.checked){
+                return;
+            }
+
             const input = todoContent.querySelector("input");
+            checkTodoStatus(todo);
             input.removeAttribute("readonly");
             input.focus();
             

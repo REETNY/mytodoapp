@@ -1,138 +1,79 @@
-const nameInput = document.querySelector("#my_name");
-const todoForm = document.querySelector("#new-todo-form");
-const todoContent = document.querySelector("#contents");
-const todoList = document.querySelector("#todo-list");
+window.addEventListener("load", () => {
+    const usersName = document.querySelector("#usersName");
+    const form = document.querySelector("#form");
+
+    usersName.addEventListener("change", (e) => {
+        localStorage.setItem("user", e.target.value);
+    })
+
+    usersName.value = localStorage.getItem("user") || "";
+
+    function getTodos(){
+       return JSON.parse(localStorage.getItem("todos")) || []
+    }
 
 
-// function to save todos
-function saveTodos(todos){
-    localStorage.setItem("todos", JSON.stringify(todos));
-}
+    form.addEventListener("submit", (e) => {
+        todosItem = getTodos();
+        e.preventDefault();
 
-// function to get todos
+        let todo = {
+            content: e.target.elements.content.value,
+            category: e.target.elements.category.value,
+            done: false
+        }
+
+        if(todo.content == "" || todo.category == "")return;
+
+        todosItem.push(todo);
+        localStorage.setItem("todos", JSON.stringify(todosItem));
+        e.target.reset();
+        showTodos(todosItem);
+    })
+})
+
 function getTodos(){
     return JSON.parse(localStorage.getItem("todos")) || []
-}
+ }
 
-// function to save todo is done or not
-function saveDone(todo, value, todoItem){
-    const todos = getTodos();
-    todos.forEach( itemz => {
-        if(itemz.content == todo.content && itemz.category == todo.category){
-            itemz.done = value;
-
-            if(itemz.done){
-                todoItem.classList.add("done");
-            }else{
-                todoItem.classList.remove("done")
-            }
-        }
-    })
-
-    saveTodos(todos)
-}
-
-// function to save todo content;
-function saveContent(todo, value){
-
-    const todos = getTodos();
-
-    todos.forEach( todoz => {
-        if(todoz.content == todo.content && todoz.category == todo.category){
-            todoz.content = value;
-        }
-    })
-    saveTodos(todos);
-}
-
-
-// function to delete the todo
-function deleteTodo(todo){
-    let todos = getTodos();
-    let index;
-    for(let i=0; i<todos.length; i++){
-        if(todos[i].category == todo.category && todos[i].content == todo.content){
-            index = i;
-        }
-    }
-
-    console.log(index);
-    todos.splice(index,1);
-    console.log(todos);
-    saveTodos(todos);
-    todosIt = getTodos();
-    showTodos();
-}
-
-function checkTodoStatus(todo){
-    const todos = getTodos();
-
-    todos.forEach( todoz => {
-        if(todo.category == todoz.category && todo.content == todoz.content & todoz.done === todo.done){
-            return;
-        }
-    })
-}
-
-
-
-let todosIt = [];
-
-window.addEventListener("load", () => {
-    todos = getTodos();
-    showTodos();
+window.addEventListener("DOMContentLoaded", () => {
+    todosItem = getTodos();
+    showTodos(todosItem)
 })
 
-nameInput.value = localStorage.getItem("user") || "";
+function showTodos(todosItem){
 
-nameInput.addEventListener("change", (e) => {
-    localStorage.setItem("user", e.target.value);
-})
-
-todoForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    console.log(todos)
-
-    const todo = {
-        content: e.target.elements.content.value,
-        category: e.target.elements.category.value,
-        done: false
+    function removeTodo(todo){
+        localStorage.setItem("todos", JSON.stringify(
+            todosItem = todosItem.filter( item => item != todo)
+        ))
+        showTodos(todosItem)
     }
-
-    if(todo.content === "" || todo.category == ""){
-        return;
+    
+    function getTodos(){
+        return JSON.parse(localStorage.getItem("todos")) || []
     }
-    todosIt.push(todo);
-    saveTodos(todosIt);
-    e.target.reset();
-    showTodos();
-})
-
-
-
-function showTodos(){
-    let datas = getTodos();
+    console.log(todosItem)
+    const todoList = document.querySelector("#todo-list");
     todoList.innerHTML = ``;
-
-    datas.forEach( todo => {
-        let itemTodo = todo;
-
-        const todoItem = document.createElement("div");
+    todosItem.forEach(todo => {
+        const todoItem = document.createElement("todoItem");
         todoItem.classList.add("todo-item");
 
         const label = document.createElement("label");
-        const inputz = document.createElement("input");
+        const input = document.createElement("input");
         const span = document.createElement("span");
 
         const todoContent = document.createElement("div");
+        todoContent.classList.add("todo-content");
 
         const actions = document.createElement("div");
         const editBtn = document.createElement("button");
         const deleteBtn = document.createElement("button");
 
-        inputz.type = "checkbox";
-        inputz.checked = todo.done;
-        
+        input.type = "checkbox";
+        input.checked = todo.done;
+
         span.classList.add("bubble");
 
         if(todo.category == "personal"){
@@ -141,60 +82,66 @@ function showTodos(){
             span.classList.add("business");
         }
 
-        todoContent.classList.add("todo-content");
-        todoContent.innerHTML = `
-            <input type="text" value="${todo.content}" readonly>
-        `
-
         actions.classList.add("actions");
         editBtn.classList.add("edit");
         editBtn.innerText = `edit`;
         deleteBtn.classList.add("delete");
         deleteBtn.innerText = `delete`;
 
-        label.appendChild(inputz);
+        label.appendChild(input);
         label.appendChild(span);
 
+        todoContent.appendChild(label);
+        todoContent.innerHTML += `
+            <input type="text" readonly value="${todo.content}" class="values">
+        `
         actions.appendChild(editBtn);
         actions.appendChild(deleteBtn);
 
-        todoItem.appendChild(label);
         todoItem.appendChild(todoContent);
         todoItem.appendChild(actions);
 
         todoList.appendChild(todoItem);
 
+        const checker = todoContent.querySelector("input");
+
         if(todo.done){
-            todoItem.classList.add("done");
-        }else{
-            todoItem.classList.remove("done");
+            todoItem.classList.add("completed");
+            checker.checked = true;
         }
 
-        inputz.addEventListener("click", (e) => {
-            saveDone(todo, e.target.checked, todoItem);
-        });
+        checker.addEventListener("click", (e) => {
+            todo.done = e.target.checked;
 
-        editBtn.addEventListener("click", () => {
+            if(todo.done){
+                todoItem.classList.add("completed");
+                checker.checked = true;
+            }else{
+                todoItem.classList.remove("completed");
+            }
+            localStorage.setItem("todos", JSON.stringify(todosItem))
+        })
 
-            if(inputz.checked){
-                return;
+        editBtn.addEventListener("click", (e) => {
+
+            if(todo.done){
+                return
             }
 
-            const input = todoContent.querySelector("input");
-            checkTodoStatus(todo);
+            const input = document.getElementsByClassName("values")[0];
             input.removeAttribute("readonly");
             input.focus();
-            
+
             input.addEventListener("blur", (e) => {
-                saveContent(todo, e.target.value);
+                todo.content = e.target.value;
+                localStorage.setItem("todos", JSON.stringify(todosItem));
                 input.setAttribute("readonly", true);
             })
         })
 
         deleteBtn.addEventListener("click", () => {
-            deleteTodo(todo);
+            removeTodo(todo);
         })
-
-
     })
+
 }

@@ -1,304 +1,240 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-:root{
-    --personal: rgb(226, 65, 186);
-    --business: rgb(39, 174, 236);
-}
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
 }
 
-main{
+:root{
+    --personal: rgb(235, 45, 178);
+    --business: rgb(16, 160, 218);
+}
+
+input[type="radio"], input[type="checkbox"]{
+    display: none;
+}
+
+body{
+    display: flex;
     width: 100%;
     min-height: 100vh;
-    padding: 20px 30px;
+    justify-content: center;
+    align-items: flex-start;
     background: #eee;
+    overflow-x: hidden;
 }
 
-.app-container{
+.app-body{
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 10px;
+    overflow-x: hidden;
 }
 
-.app-header{
+.user{
+    margin-bottom: 50px;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    column-gap: 10px;
 }
 
-.greeting{
-    width: 100%;
-    margin-bottom: 20px;
-    background: #eee;
-}
-
-.greet{
-    font-size: 40px;
+.userName{
+    font-size: 25px;
     font-weight: 600;
-    letter-spacing: 0.85px;
 }
 
-#my_name{
-    font-size: 40px;
-    font-weight: 700;
-    outline: none;
+.user input{
+    background: none;
     border: none;
-    background: #eee;
-}
-
-
-
-
-.app-body{
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-.create-todo{
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-    place-items: center;
-    width: 100%;
-}
-
-.create-todo h3{
-    font-size: 40px;
-    font-weight: 700;
-}
-
-#new-todo-form{
-    width: 100%;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-#new-todo-form h4{
-    font-size: 35px;
-    font-weight: 700;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-#contents{
-    width: 100%;
-    display: block;
-    height: 60px;
-    padding-left: 30px;
-    border: none;
-    box-shadow: 0px 0px 2px 1px black;
-    border-radius: 30px;
-    font-size: 21px;
     outline: none;
-}
-
-.options{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 20px;
-    grid-template-rows: 120px;
-}
-
-.options label{
-    background-color: gray;
+    font-size: 25px;
+    font-weight: 600;
+    width: 100%;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    border-radius: 20px;
+    flex-wrap: wrap;
+    text-overflow: ellipsis;
 }
 
-#category1, #category2{
-    appearance: none;
-    border: none;
-    outline: none;
+#form{
+    width: 100%;
 }
 
-.bubble{
-    width: 20px;
-    height: 20px;
-    border: 1px solid;
-    border-color: var(--business);
-    box-shadow: 0px 0px 1px 2px var(--business);
-    border-radius: 50%;
+.input_cont{
+    width: 100%;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 50px;
+    margin-bottom: 50px;
+}
+
+.userInput{
     position: relative;
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 25px;
+    padding-right: 72px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px 1px rgb(22, 22, 22);
+    border-radius: 25px;
+}
+
+.btn{
+    position: absolute;
+    right: 0;
+    background: pink;
+    border: none;
+    outline: none;
+    display: block;
+    margin-right: 10px;
+    font-size: 12px;
+    padding: 0px 5px;
+    font-weight: 600;
+    height: 40px;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+.category{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    margin-bottom: 50px;
+}
+
+.options{
+    width: 100%;
+    height: 70px;
+    background-color: rgb(163, 161, 161);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: 0px 0px 1px 2px gainsboro;
+}
+
+
+.bubble{
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--business);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bubble.personal{
-    box-shadow: 0px 0px 1px 2px var(--personal);
     border-color: var(--personal);
 }
 
-.bubble.business::after{
-    position: absolute;
-    content: '';
+.bubble::after{
     width: 0px;
     height: 0px;
-    background: var(--business);
-    display: inline-block;
     border-radius: 50%;
+    background: var(--business);
+    content: "";
+    display: inline-block;
 }
 
 .bubble.personal::after{
-    position: absolute;
-    content: '';
-    width: 0px;
-    height: 0px;
     background: var(--personal);
-    display: inline-block;
-    border-radius: 50%;
 }
 
 input:checked ~ .bubble::after{
-    width: 10px;
-    height: 10px;
-}
-
-input[type="submit"]{
-    width: 90%;
-    margin-top: 20px;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background-color: rgb(223, 57, 112);
+    width: 14px;
+    height: 14px;
 }
 
 
+.todos-cont{
+    width: 100%;
+}
 
-.todo-list{
+.todo-head{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#todo-list{
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-}
-
-.list{
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 25px;
-}
-
-.todo-list h3{
-    font-size: 30px;
+    row-gap: 15px;
 }
 
 .todo-item{
-    display: flex;
-    align-items: center;
-    background: gray;
-    padding: 0 20px;
-    border-radius: 27.5px;
-}
-
-.todo-item label{
-    display: flex;
-    align-items: center;
     width: 100%;
-    flex-basis: 5%;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    height: 45px;
+    background: gainsboro;
+    border-radius: 22.5px;
+    align-items: center;
+    padding: 5px 5px;
 }
 
 .todo-content{
-    flex-basis: 70%;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    height: 100%;
 }
 
-.todo-content input{
-    width: 100%;
-    height: 50px;
-    font-size: 18px;
-    padding-left: 20px;
-    padding-right: 10px;
-    outline: none;
-    background: gray;
+.values{
+    width: calc(100% - 30px);
+    height: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    background: none;
     border: none;
+    outline: none;
 }
 
 .actions{
-    flex-basis: 25%;
+    width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    column-gap: 5px;
 }
 
-.edit{
-    background: rgb(117, 170, 31);
+.delete, .edit{
+    flex-basis: 50%;
+    background: none;
+    border: none;
+    outline: none;
+    height: 25px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
 }
 
 .delete{
-    background: rgb(226, 75, 29);
+    background: rgb(230, 57, 57);
 }
 
-.actions button{
-    width: 45%;
-    height: 35px;
-    outline: none;
-    border: none;
-    border-radius: 10px;
+.edit{
+    background: rgb(116, 184, 14);
 }
 
-.todo-item label input[type="checkbox"]{
-    appearance: none;
-}
 
-.todo-item.done .todo-content input{
+.todo-item.completed  input[type="text"]{
     text-decoration: line-through;
 }
 
-
-
-
-@media only screen and (max-width: 600px){
-    body{
-        width: 100%;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-
-    main{
-        width: 100%;
-        min-height: 100vh;
-        padding: 15px 20px;
-        display: flex;
-        overflow-x: hidden;
-    }
-
-    .app-container{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .greet{
-        font-size: 22px;
-    }
-
-    #my_name{
-        font-size: 25px;
-    }
-
-    #new-todo-form h4{
-        font-size: 22px;
-    }
-
-    .create-todo h3{
-        font-size: 22px;
-    }
-
-    .delete,.edit{
-        font-size: 10px;
-        font-weight: 700;
-    }
-
-    .todo-list h3{
-        font-size: 21px;
-        margin-bottom: 20px;
-    }
-
-    .todo-content input{
-        font-size: 15px;
+@media only screen and (min-width: 900px){
+    .app-body{
+        width: 80%;
     }
 }

@@ -53,7 +53,7 @@ function showTodos(todosItem){
     function getTodos(){
         return JSON.parse(localStorage.getItem("todos")) || []
     }
-    console.log(todosItem)
+
     const todoList = document.querySelector("#todo-list");
     todoList.innerHTML = ``;
     todosItem.forEach(todo => {
@@ -128,7 +128,7 @@ function showTodos(todosItem){
                 return
             }
 
-            const input = document.getElementsByClassName("values")[0];
+            const input = todoContent.querySelector(".values");
             input.removeAttribute("readonly");
             input.focus();
 

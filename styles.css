@@ -238,3 +238,50 @@ input:checked ~ .bubble::after{
         width: 80%;
     }
 }
+
+/* changes */
+.todo-item label{
+    width: fit-content;
+    height: fit-content;
+    margin-right: 7px;
+}
+
+.todo-item label .checker{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    position: relative;
+}
+
+.checker.personal::after{
+    content: "\2713";
+    color: var(--personal);
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    position: absolute;
+    top: -10px;
+    left: 2px;
+    display: none;
+}
+
+.checker.business::after{
+    content: "\2713";
+    color: var(--business);
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    position: absolute;
+    top: -10px;
+    left: 2px;
+    display: none;
+}
+
+.todo-item label input:checked ~ .checker.business::after{
+    display: block;
+}
+
+.todo-item label input:checked ~ .checker.personal::after{
+    display: block;
+}

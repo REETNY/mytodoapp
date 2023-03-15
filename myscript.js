@@ -25,7 +25,7 @@ window.addEventListener("load", () => {
 
         if(todo.content == "" || todo.category == "")return;
 
-        todosItem.push(todo);
+        todosItem.unshift(todo);
         localStorage.setItem("todos", JSON.stringify(todosItem));
         e.target.reset();
         showTodos(todosItem);
@@ -57,7 +57,7 @@ function showTodos(todosItem){
     const todoList = document.querySelector("#todo-list");
     todoList.innerHTML = ``;
     todosItem.forEach(todo => {
-        const todoItem = document.createElement("todoItem");
+        const todoItem = document.createElement("div");
         todoItem.classList.add("todo-item");
 
         const label = document.createElement("label");
@@ -74,7 +74,7 @@ function showTodos(todosItem){
         input.type = "checkbox";
         input.checked = todo.done;
 
-        span.classList.add("bubble");
+        span.classList.add("checker");
 
         if(todo.category == "personal"){
             span.classList.add("personal");
